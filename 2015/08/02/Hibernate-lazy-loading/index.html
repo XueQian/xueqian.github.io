@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title> Hibernate lazy loading | Hexo</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Hexo">
+    <meta name="author" content="John Doe">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">java</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">javascript</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://xueqian.github.io/" class="animsition-link">Qiana</a></li>
+                    
+                    <li><a href="http://domain.com/" class="animsition-link">Name</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Hexo</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/xueqian" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/1.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>I am<span>Qiana</span> , WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>NO TRY , NO HIGH</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2015-08-02T05:36:24.000Z" itemprop="datePublished">
+          2015-08-02
+      </time>
+    
+</span>
+                <h1> Hibernate lazy loading</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<pre><code><span class="annotation">@OneToMany</span>(fetch = FetchType.LAZY, mappedBy = <span class="string">"employee"</span>,cascade=CascadeType.ALL)
+<span class="function"><span class="keyword">public</span> Set&lt;Schedule&gt; <span class="title">getSchedules</span><span class="params">()</span> </span>{
+  <span class="keyword">return</span> schedules;
+}
+</code></pre><p>DAO层代码中@OneToOne，@ManyToOne，@OneToMany，@ManyToMany只是定义了entity之间的关系，还需要通过fetch属性指定加载方式。Hibernate定义了两种加载方式：</p>
+<ul>
+<li>FetchType.LAZY  —-LAZY = fetch when needed</li>
+<li>FetchType.EAGER —-EAGER = fetch immediately</li>
+</ul>
+<p>如果是EAGER，那么表示取出这条数据时，它关联的数据也同时取出放入内存中<br>如果是LAZY，那么取出这条数据时，它关联的数据并不取出来，在同一个session中，什么时候要用，就什么时候取(再次访问数据库)。</p>
+<h2 id="Hibernate_N+1问题">Hibernate N+1问题</h2><p>在Hibernate  二个或者多个对象有关联（包含之前所述4种关联）的情况，并且设置fetch = FetchType.EAGER。在执行hql查询语句的时候，查询一个表，将会随便查询出所有相关联的表，<br>即：发出一条sql语句后，继续发出N条sql语句。<br>这种问题在多对一关联（最为常见）尤为严重，假如存在user表和group表并且为多对一关联，user表中有1000条数据，group表中有100条数据。那么这样查询就会产生<br>1(select user …)+1000(select group … where id=XXX)条sql语句，DB将欲哭无泪啊！</p>
+<p>下面是摘自martin fowler对于lazy loading的解释，原文链接为<a href="https://github.com/FasterXML/jackson-datatype-hibernate" target="_blank" rel="external">Here</a></p>
+<blockquote>
+<p>There are four main varieties of lazy load.</p>
+<ul>
+<li><strong>Lazy Initialization</strong> uses a special marker value (usually null) to indicate a field isn’t loaded. Every access to the field checks the field for the marker value and if unloaded, loads it.</li>
+<li><strong>Virtual Proxy</strong> is an object with the same interface as the real object. The first time one of its methods are called it loads the real object and then delegates.</li>
+<li><strong>Value Holder</strong> is an object with a getValue method. Clients call getValue to get the real object, the first call triggers the load.</li>
+<li>A <strong>ghost</strong> is the real object without any data. The first time you call a method the ghost loads the full data into its fields.</li>
+</ul>
+</blockquote>
+<hr>
+<p>在前后端分离的项目中，如果设置FetchType.EAGER。需要做如下配置</p>
+<ul>
+<li><p>将”jackson-mapper-asl”依赖加入到classpath中，gradle中配置如下：</p>
+<pre><code><span class="keyword">compile</span> <span class="string">'org.hibernate:hibernate-entitymanager:4.3.10.Final'</span>
+</code></pre></li>
+<li><p>将@ResponseBody注解加入到controller的方法中，如下：</p>
+<pre><code> @<span class="type">RequestMapping</span>(value = <span class="string">"/employees"</span>, <span class="keyword">method</span> = <span class="type">RequestMethod</span>.<span class="type">GET</span>)
+public @<span class="type">ResponseBody</span> <span class="type">List</span>&lt;<span class="type">Employee</span>&gt; getEmployees() {
+
+ <span class="keyword">return</span> employeeService.getEmployees();
+}
+</code></pre></li>
+</ul>
+<hr>
+<p>当在一个遗留项目，我们之前用到了jsp,现在要前后端分离使用angular,在这种情况下，就必须使用到lazy loading。<br>那么hibernate 本身在向前端传数据时就会出现如下问题：</p>
+<pre><code>Error <span class="number">500</span> Attempted <span class="keyword">to</span> serialize java.lang.<span class="keyword">Class</span>: org.hibernate.proxy.HibernateProxy. Forgot <span class="keyword">to</span> <span class="keyword">register</span> a <span class="keyword">type</span> adapter?
+</code></pre><p>原因就是无法对设置了lazy loading 的外键部分进行加载。<br>解决方法是需要工具对其进行序列化，链接<a href="https://github.com/FasterXML/jackson-datatype-hibernate" target="_blank" rel="external">here</a></p>
+<p>完成上述配置后需要在dao层显示的破坏掉lazy loading</p>
+<pre><code><span class="keyword">for</span> <span class="params">(Customer customer : customerList)</span> {
+<span class="comment">// if (customer.getEmployee() != null) {</span>
+<span class="comment">//    customer.getEmployee().getEmail();</span>
+<span class="comment">//  }</span>
+   Hibernate.initialize<span class="params">(customer.getEmployee<span class="params">()</span>)</span>;
+   }
+</code></pre><p> 最后想说的是，Lazy Loading 这个问题并不是Hibernate 独有，事实上很多Object/Relational Mapping (ORM) 的程式库，为了要争取一些执行上的效率、降低内存空间与数据传输负荷，几乎都采用类似的作法。</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2015/08/02/hello-world/" style="float: left;">
+        ← Hello World
+    </a>
+    
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/08/02/Hibernate-lazy-loading/" data-title=" Hibernate lazy loading" data-url="http://yoursite.com/2015/08/02/Hibernate-lazy-loading/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"duoshuo_name"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By John Doe. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/xueqian" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>
