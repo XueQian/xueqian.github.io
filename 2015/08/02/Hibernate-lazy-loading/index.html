@@ -255,11 +255,8 @@
 </ul>
 </blockquote>
 <hr>
-<p>在前后端分离的项目中，如果设置FetchType.EAGER。需要做如下配置<a href="http://codetutr.com/2013/04/09/spring-mvc-easy-rest-based-json-services-with-responsebody/" target="_blank" rel="external">如下</a></p>
+<p>在前后端分离的项目中，如果设置FetchType.EAGER。需要做如下配置</p>
 <ul>
-<li><p>将”jackson-mapper-asl”依赖加入到classpath中，gradle中配置如下：</p>
-<pre><code><span class="keyword">compile</span> <span class="string">'org.codehaus.jackson:jackson-mapper-asl:1.9.10'</span>
-</code></pre></li>
 <li><p>将@ResponseBody注解加入到controller的方法中，如下：</p>
 <pre><code> @<span class="type">RequestMapping</span>(value = <span class="string">"/employees"</span>, <span class="keyword">method</span> = <span class="type">RequestMethod</span>.<span class="type">GET</span>)
 public @<span class="type">ResponseBody</span> <span class="type">List</span>&lt;<span class="type">Employee</span>&gt; getEmployees() {
