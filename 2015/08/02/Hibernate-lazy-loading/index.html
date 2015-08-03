@@ -243,7 +243,7 @@
 <li>FetchType.EAGER —-EAGER = fetch immediately</li>
 </ul>
 <p>如果是EAGER，那么表示取出这条数据时，它关联的数据也同时取出放入内存中<br>如果是LAZY，那么取出这条数据时，它关联的数据并不取出来，在同一个session中，什么时候要用，就什么时候取(再次访问数据库)。</p>
-<h2 id="Hibernate_N+1问题">Hibernate N+1问题</h2><p>在Hibernate  二个或者多个对象有关联（包含之前所述4种关联）的情况，并且设置fetch = FetchType.EAGER。在执行hql查询语句的时候，查询一个表，将会随便查询出所有相关联的表，<br>即：发出一条sql语句后，继续发出N条sql语句。<br>这种问题在多对一关联（最为常见）尤为严重，假如存在user表和group表并且为多对一关联，user表中有1000条数据，group表中有100条数据。那么这样查询就会产生<br>1(select user …)+1000(select group … where id=XXX)条sql语句，DB将欲哭无泪啊！</p>
+<h2 id="Hibernate_N+1问题">Hibernate N+1问题</h2><p>在Hibernate  二个或者多个对象有关联的情况，并且设置fetch = FetchType.EAGER。在执行hql查询语句的时候，查询一个表，将会随便查询出所有相关联的表，<br>即：发出一条sql语句后，继续发出N条sql语句。<br>这种问题在多对一关联（最为常见）尤为严重，假如存在user表和group表并且为多对一关联，user表中有1000条数据，group表中有100条数据。那么这样查询就会产生<br>1(select user …)+1000(select group … where id=XXX)条sql语句，DB将欲哭无泪啊！</p>
 <p>下面是摘自martin fowler对于lazy loading的解释，原文链接为<a href="https://github.com/FasterXML/jackson-datatype-hibernate" target="_blank" rel="external">Here</a></p>
 <blockquote>
 <p>There are four main varieties of lazy load.</p>
@@ -255,10 +255,10 @@
 </ul>
 </blockquote>
 <hr>
-<p>在前后端分离的项目中，如果设置FetchType.EAGER。需要做如下配置</p>
+<p>在前后端分离的项目中，如果设置FetchType.EAGER。需要做如下配置<a href="https://github.com/FasterXML/jackson-datatype-hibernate" target="_blank" rel="external">here</a></p>
 <ul>
 <li><p>将”jackson-mapper-asl”依赖加入到classpath中，gradle中配置如下：</p>
-<pre><code><span class="keyword">compile</span> <span class="string">'org.hibernate:hibernate-entitymanager:4.3.10.Final'</span>
+<pre><code><span class="keyword">compile</span> <span class="string">'org.codehaus.jackson:jackson-mapper-asl:1.9.10'</span>
 </code></pre></li>
 <li><p>将@ResponseBody注解加入到controller的方法中，如下：</p>
 <pre><code> @<span class="type">RequestMapping</span>(value = <span class="string">"/employees"</span>, <span class="keyword">method</span> = <span class="type">RequestMethod</span>.<span class="type">GET</span>)
