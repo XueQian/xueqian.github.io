@@ -272,19 +272,8 @@
 <h3 id="SVG">SVG</h3><ul>
 <li>简介</li>
 </ul>
-<p>SVG即”Scalable Vector Graphics”，可以理解成“可缩放矢量图形”。是基于可扩展标记语言（XML），用于描述二维矢量图形的一种图形格式。<br>各浏览器对其的支持，更多可参考<strong><a href="http://caniuse.com/#search=svg" target="_blank" rel="external">canIUse</a></strong></p>
-<p><img src="/img/canIUse.png" alt="Alt text"><br>维基百科对其有简单的介绍：</p>
-<blockquote>
-<ul>
-<li>SVG允许3种图形对象类型：矢量图形、栅格图像以及文本。<ul>
-<li>图形对象——包括PNG、JPEG这些栅格图像——能够被编组、设计、转换及集成进先前的渲染对象中。</li>
-<li>文本可以在任何适用于应用程序的XML命名空间之内，从而提高SVG图形的搜索能力和无障碍性。</li>
-</ul>
-</li>
-<li>SVG提供的功能集涵盖了嵌套转换、裁剪路径、Alpha通道、滤镜效果、模板对象以及可扩展性。</li>
-<li>SVG严格遵从XML语法，并用文本格式的描述性语言来描述图像内容，因此是一种和图像分辨率无关的矢量图形格式。</li>
-</ul>
-</blockquote>
+<p>SVG即”Scalable Vector Graphics”，可以理解成“可缩放矢量图形”。是基于可扩展标记语言（XML），用于描述二维矢量图形的一种图形格式。与屏幕分辨率无关, 体积上能使用Gzip的方式压缩, 而且修改编辑都很方便。<br>各浏览器对其的支持，更多可参考<strong><a href="http://caniuse.com/#search=svg" target="_blank" rel="external">canIUse</a></strong></p>
+<p><img src="/img/canIUse.png" alt="Alt text"></p>
 <p>与其他位图相比，有如下优势：</p>
 <ol>
 <li>SVG可被非常多的工具读取和修改（比如记事本）</li>
@@ -297,8 +286,35 @@
 <li>SVG是开放的标准</li>
 <li>SVG文件是纯粹的XML</li>
 </ol>
-<p><img src="/img/svg-1.png" alt="Alt text"></p>
-
+<p><img src="/img/svg-1.png" alt="Alt text"><br>上图展示了位图与SVG图在浏览器显示的效果。</p>
+<ul>
+<li>如何使用</li>
+</ul>
+<p>SVG是纯粹的XML文件，要将其嵌入到HTML中，有如下方式：</p>
+<hr>
+<p>img，需要注意的是，使用这种方法在交互性上有很多的限制，如不能使用JS来控制。</p>
+<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"/path/*.svg"</span>  <span class="attribute">width</span>=<span class="string">"300"</span> /&gt;
+</code></pre><hr>
+<p>Background-image，最好不要使用base64编码来格式化SVG图片，因为它在加载完前会阻塞其它资源的下载。<br>需要注意的是，使用这种方法在交互性上有很多的限制，如不能使用JS来控制。</p>
+<pre><code><span class="class">.logo</span> {
+  <span class="attribute">background-image</span>: <span class="function">url</span>(<span class="string">/path/*.svg</span>);
+  <span class="attribute">background-size</span>: <span class="number">300px</span>;
+}
+</code></pre><hr>
+<p>iframe。</p>
+<pre><code><span class="tag">&lt;<span class="title">iframe</span> <span class="attribute">src</span>=<span class="value">"/path/*.svg"</span>&gt;</span>balabala...<span class="tag">&lt;/<span class="title">iframe</span>&gt;</span>
+</code></pre><hr>
+<p>Embed，早期用的很多。</p>
+<pre><code>&lt;embed <span class="class"><span class="keyword">type</span></span>=<span class="string">"image/svg+xml"</span> src=<span class="string">"/path/*.svg"</span> /&gt;
+</code></pre><hr>
+<p>Object，<object>是SVG使用方法中很好的一个选择，如果你想使用JS来进行交互控制的话。 只需要把它放到HTML中就行了。</object></p>
+<pre><code>&lt;<span class="keyword">object</span> <span class="keyword">type</span>=<span class="string">"image/svg+xml"</span> data=<span class="string">"/path/*.svg"</span>&gt;balabala&lt;/<span class="keyword">object</span>&gt;
+</code></pre><hr>
+<p>svg,直接使用svg标签，通过代码将SVG图像嵌入到HTML代码中。直接在HTML页面中嵌入SVG，而不是像前面几种方式那样，将SVG图像文件嵌入到页面当中。<br>你可以设置width和height值，控制SVG图像的宽度和高度。还可以通过CSS给其定义一些样式，实现一些样式效果。</p>
+<pre><code><span class="tag">&lt;<span class="title">svg</span> <span class="attribute">width</span>=<span class="value">"579"</span> <span class="attribute">height</span>=<span class="value">"220"</span> <span class="attribute">viewBox</span>=<span class="value">"0 0 579 220"</span>&gt;</span>
+......
+<span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
+</code></pre>
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
