@@ -263,11 +263,32 @@
 </blockquote>
 <p>D3.js是一个JavaScript库，它可以通过数据来操作文档。D3可以通过使用HTML、SVG和CSS把数据鲜活形象地展现出来。D3严格遵循Web标准，因而可以让你的程序轻松兼容现代主流浏览器并避免对特定框架的依赖。同时，它提供了强大的可视化组件，可以让使用者以数据驱动的方式去操作DOM。</p>
 <p>简单的说，D3.js主要是一个用于前端来操作数据的JavaScript库。它通过使用HTML、SVG、CSS来给数据注入生命，即转换为各种简单易懂又美观的图形。</p>
-<p>可以在<font color="blue"><strong><a href="https://github.com/search?q=stars:%3E1&amp;s=stars&amp;type=Repositories" target="_blank" rel="external">github</a></strong></font>上看到D3有多受欢迎。</p>
 <ul>
 <li>搭建环境</li>
 </ul>
 <p>我们可以在 <font color="blue"><strong><a href="http://d3js.org/" target="_blank" rel="external">官网</a></strong></font>下载最新版本的D3.js，也可以在  <font color="blue"><strong><a href="https://github.com/mbostock/d3/releases" target="_blank" rel="external">github</a></strong> </font>上下载之前的版本。<br>下载并且解压缩后，会得到3个文件：d3.js、d3.min.js和LISENSE文件。<br>在开发过程中，建议使用d3.js，它可以帮你深入到D3库中跟踪调试JavaScript代码。<br>生产环境中，建议使用d3.min.js，它更加节省资源。<br>想要了解更多可参考 <font color="blue"><strong><a href="http://stackoverflow.com/questions/30711060/difference-between-d3-js-vs-d3-min-js" target="_blank" rel="external">stackoverflow</a></strong></font><br>要使用D3.js，只需要将其引入到html中即可。</p>
+<ul>
+<li>优点</li>
+</ul>
+<ol>
+<li>开源 <strong><a href="https://github.com/mbostock/d3" target="_blank" rel="external">github链接</a></strong><br>可以在<font color="blue"><strong><a href="https://github.com/search?q=stars:%3E1&amp;s=stars&amp;type=Repositories" target="_blank" rel="external">github</a></strong></font>上看到D3有多受欢迎。</li>
+<li>大量示例及文档<ul>
+<li><strong><a href="http://www.jianshu.com/p/c3800c61d2fb" target="_blank" rel="external">D3 gallery</a></strong> 这里有不少有趣的例子，可以帮你在线查找D3的使用方法，有各种各样的图表、特定的技术，还有一些跟其他工具一起实现的示例。</li>
+<li><strong><a href="http://bost.ocks.org/mike/" target="_blank" rel="external">Mike Bostock</a></strong> 是个D3示例站点，作者是Mike Bostock，这个站点里有很多有趣的例子。</li>
+<li><strong><a href="http://christopheviau.com/d3list/gallery.html" target="_blank" rel="external">BioVisualize</a></strong> 算是一个分门别类的D3 gallery，可以帮你快速地在线查找你想要的例子。</li>
+<li><strong><a href="https://github.com/mbostock/d3/wiki/Tutorials" target="_blank" rel="external">D3教程</a></strong> 有很多朋友不断更新提供的教程、讨论和文档，给你细致地演示了D3的使用方法。</li>
+<li><strong><a href="https://github.com/d3/d3-plugins" target="_blank" rel="external">D3插件</a></strong> 可能有些你需要的功能是D3没有的。在你自己实践之前，先查查D3的插件库，它提供了各种常用的、不常用的功能。</li>
+<li><strong><a href="https://github.com/mbostock/d3/wiki/API-Reference" target="_blank" rel="external">D3 API</a></strong> 是很不错的文档。这里你能找到D3所提供的全部功能、属性的详细说明。</li>
+<li><strong><a href="http://jsbin.com/ugacud/1/edit?html,css,output" target="_blank" rel="external">JS Bin</a></strong> 是个在线的D3测试、实验环境。你可以很容易地通过该工具跟其他人分享一些简单的代码。</li>
+<li><strong><a href="http://jsfiddle.net/qAHC2/" target="_blank" rel="external">JS Fiddle</a></strong> 跟JS Bin差不多，也是一个在线JavaScript代码分享平台。</li>
+</ul>
+</li>
+<li>强大的社区支持<ul>
+<li><strong><a href="https://groups.google.com/forum/?fromgroups#!forum/d3-js" target="_blank" rel="external">Google D3讨论社区</a></strong> 这是个官方的用户组，不单单有D3，还有一些其他相关的库。</li>
+<li>**<a href="http://stackoverflow.com/search?q=d3" target="_blank" rel="external">Stackoverflow</a> 搜索d3相关问题，一般都能快速找到解决方法。</li>
+</ul>
+</li>
+</ol>
 <hr>
 <h3 id="SVG">SVG</h3><ul>
 <li>简介</li>
@@ -314,7 +335,10 @@
 <pre><code><span class="tag">&lt;<span class="title">svg</span> <span class="attribute">width</span>=<span class="value">"579"</span> <span class="attribute">height</span>=<span class="value">"220"</span> <span class="attribute">viewBox</span>=<span class="value">"0 0 579 220"</span>&gt;</span>
 ......
 <span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
-</code></pre>
+</code></pre><h3 id="基于D3的工具">基于D3的工具</h3><ul>
+<li>如果你使用D3，但又不想写代码，可以考虑一些基于D3的工具.个人推荐: <strong><a href="http://nvd3.org/" target="_blank" rel="external">NVD3</a></strong>。<br>它是一个可重用的D3图表。NVD3提供了很多漂亮的示例，不用像在D3里那样编写代码就可以定制很多效果。</li>
+</ul>
+
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
