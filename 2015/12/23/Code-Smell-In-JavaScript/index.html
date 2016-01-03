@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title> Hibernate lazy loading | 欢迎来到-qiana的小小站</title>
+  <title>Code Smell In JavaScript | 欢迎来到-qiana的小小站</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -237,79 +237,103 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2015-08-02T05:36:24.000Z" itemprop="datePublished">
-          2015-08-02
+      <time datetime="2015-12-23T14:53:04.000Z" itemprop="datePublished">
+          2015-12-23
       </time>
     
     
     | 
-    <a href='/tags/java-mysql-lazy-loading/'>java mysql lazy loading</a>
+    <a href='/tags/JavaScript-Refactor/'>JavaScript Refactor</a>
     
     
 </span>
-                <h1> Hibernate lazy loading</h1>
+                <h1>Code Smell In JavaScript</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<pre><code><span class="annotation">@OneToMany</span>(fetch = FetchType.LAZY, mappedBy = <span class="string">"employee"</span>,cascade=CascadeType.ALL)
-<span class="function"><span class="keyword">public</span> Set&lt;Schedule&gt; <span class="title">getSchedules</span><span class="params">()</span> </span>{
-  <span class="keyword">return</span> schedules;
-}
-</code></pre><p>DAO层代码中@OneToOne，@ManyToOne，@OneToMany，@ManyToMany只是定义了entity之间的关系，还需要通过fetch属性指定加载方式。Hibernate定义了两种加载方式：</p>
-<ul>
-<li>FetchType.LAZY  —-LAZY = fetch when needed</li>
-<li>FetchType.EAGER —-EAGER = fetch immediately</li>
-</ul>
-<p>如果是EAGER，那么表示取出这条数据时，它关联的数据也同时取出放入内存中<br>如果是LAZY，那么取出这条数据时，它关联的数据并不取出来，在同一个session中，什么时候要用，就什么时候取(再次访问数据库)。</p>
-<h4 id="Hibernate_默认将OneToMany_及ManyToMany设置为lazy">Hibernate 默认将OneToMany 及ManyToMany设置为lazy</h4><h2 id="Hibernate_N+1问题">Hibernate N+1问题</h2><p>在Hibernate  二个或者多个对象有关联的情况，并且设置fetch = FetchType.EAGER。在执行hql查询语句的时候，查询一个表，将会随便查询出所有相关联的表，<br>即：发出一条sql语句后，继续发出N条sql语句。<br>这种问题在多对一关联（最为常见）尤为严重。假如存在course和schedule表，且为OneToMany。course表存在10条数据，schedule表存在100条数据。<br>当我们需要查出所有的course时，查询会产生<br>1(select * from course)+10(select schedule … where courseId=XXX)条sql语句。</p>
-<p>下面是摘自martin fowler对于lazy loading的解释，原文链接<a href="http://martinfowler.com/eaaCatalog/lazyLoad.html" target="_blank" rel="external">为</a>Â</p>
-<blockquote>
-<p>There are four main varieties of lazy load.</p>
-<ul>
-<li><strong>Lazy Initialization</strong> uses a special marker value (usually null) to indicate a field isn’t loaded. Every access to the field checks the field for the marker value and if unloaded, loads it.</li>
-<li><strong>Virtual Proxy</strong> is an object with the same interface as the real object. The first time one of its methods are called it loads the real object and then delegates.</li>
-<li><strong>Value Holder</strong> is an object with a getValue method. Clients call getValue to get the real object, the first call triggers the load.</li>
-<li>A <strong>ghost</strong> is the real object without any data. The first time you call a method the ghost loads the full data into its fields.</li>
-</ul>
-</blockquote>
+      		<p>之前看了马大叔的<strong><a href="http://book.douban.com/subject/4262627/" target="_blank" rel="external">《重构》</a></strong>一书，第三章就是对Java code smell的总结。最近项目更多在用JavaScript，查询资料以及自己的些许经验总结下 JS 的 code smell。</p>
 <hr>
-<p>在前后端分离的项目中，如果设置FetchType.EAGER。需要做如下配置</p>
 <ul>
-<li><p>将@ResponseBody注解加入到controller的方法中，如下：</p>
-<pre><code> @<span class="type">RequestMapping</span>(value = <span class="string">"/employees"</span>, <span class="keyword">method</span> = <span class="type">RequestMethod</span>.<span class="type">GET</span>)
-public @<span class="type">ResponseBody</span> <span class="type">List</span>&lt;<span class="type">Employee</span>&gt; getEmployees() {
+<li>code smell 是什么？<br>Google关键词code smell,第一个就是<strong><a href="https://en.wikipedia.org/wiki/Code_smell" target="_blank" rel="external">维基百科</a></strong>的解释，关键部分如下：<pre><code>Code smell, also known as bad smell, <span class="keyword">in</span> computer programming <span class="tag">code</span>, refers to any symptom <span class="keyword">in</span> the source <span class="tag">code</span> of <span class="tag">a</span> program that possibly indicates <span class="tag">a</span> deeper problem.
+</code></pre>同样也少不了马大叔有名的<strong><a href="http://martinfowler.com/bliki/CodeSmell.html" target="_blank" rel="external">博客</a></strong>，截取关键部分如下：<pre><code>A <span class="tag">code</span> smell is <span class="tag">a</span> surface indication that usually corresponds to <span class="tag">a</span> deeper problem <span class="keyword">in</span> the system. 
+</code></pre>简单来说，code smell就是代码的坏味道，它是提示代码中某个地方存在错误的一个暗示，我们可以通过这个坏味道在代码中找到问题。常常标志代码应该被refactored或者全部的设计都应该被reviewed。<br>需要注意的是，code smell只是一种“暗示”，并非一种“确定”。code smell更多是“直觉的，本能的”。</li>
+</ul>
+<hr>
+<ul>
+<li><p>《重构》中的 code smell<br>要将书中第三章总结下一一罗列了。</p>
+<pre><code><span class="number">1</span><span class="class">.Duplacated</span> <span class="function"><span class="title">Code</span><span class="params">(重复代码)</span></span>:顾名思义，在一个以上地方存在相同或相似代码，如果可以将其合二为一，代码会变得更好。这几乎是最常见的异味，也是Refactoring的主要目标之一。
 
- <span class="keyword">return</span> employeeService.getEmployees();
-}
+<span class="number">2</span><span class="class">.Long</span> <span class="function"><span class="title">Method</span><span class="params">(过长函数)</span></span>:程序越长越难以理解。而小的函数拥有更好的解释能力，共享能力以及选择能力。小函数易理解的关键就是起一个好名字，让别人不必看具体实现就能知道这个函数的功能是什么。
+
+<span class="number">3</span><span class="class">.Large</span> <span class="function"><span class="title">Class</span><span class="params">(过大的类)</span></span>:遵守单一职责原则，一个类最好只干一件事情。如果想利用单个类干太多事情，其内就会出现太多实例变量。就会出现重复代码了。
+
+<span class="number">4</span><span class="class">.Long</span> Parameter <span class="function"><span class="title">List</span><span class="params">(过长参数列)</span></span>:过长参数难以理解，并且可能会造成前后调用不一致的问题。
+
+<span class="number">5</span><span class="class">.Divergent</span> <span class="function"><span class="title">Change</span><span class="params">(发散式变化)</span></span>:即一个类受多种变化影响。针对某一外界变化的所有相应修改，都只应该发生在单一类中，而这个新类中所有内容都应该反映此变化。
+
+<span class="number">6</span><span class="class">.Shotgun</span> <span class="function"><span class="title">Surgery</span><span class="params">(霰弹式修改)</span></span>:即一种变化会引发多个类做修改。最理想的状态是“外界变化”和“需要修改的类”能够达到一一对应。
+
+<span class="number">7</span><span class="class">.Feature</span> <span class="function"><span class="title">Envy</span><span class="params">(依恋情节)</span></span>:函数对于某个类的兴趣高于对自己类的兴趣。一个类的方法频繁的使用get方法存取其他类的状态进行计算，那么就需要考虑把行为移到涉及状态数目最多的那个类。
+
+<span class="number">8</span><span class="class">.Data</span> <span class="function"><span class="title">Clumps</span><span class="params">(数据泥团)</span></span>:某些数据通常像孩子一样成群玩耍：一起出现在很多类的成员变量中，一起出现在许多方法的参数中……，这些数据或许应该自己独立形成对象。
+
+<span class="number">9</span><span class="class">.Primitive</span> <span class="function"><span class="title">Obsession</span><span class="params">(基本类型偏执)</span></span>:面向对象的新手通常习惯使用几个原始类型的数据来表示一个概念。譬如对于范围，他们会使用两个数字。对于Money，他们会用一个浮点数来表示。因为你没 有使用对象来表达问题中存在的概念，这使得代码变的难以理解，解决问题的难度大大增加。好的习惯是扩充语言所能提供原始类型，用小对象来表示范围、金额、 转化率、邮政编码等等。
+
+<span class="number">10</span><span class="class">.Switch</span> <span class="function"><span class="title">Statements</span><span class="params">(switch 惊悚现身)</span></span>:OO的一个最明显特征就是：少用<span class="function"><span class="title">switch</span><span class="params">(或者case)</span></span>。一看到switch，就可以考虑用多态来替代。
+
+<span class="number">11</span><span class="class">.Parallel</span> Inheritance <span class="function"><span class="title">Hierarchies</span><span class="params">(平行继承体系)</span></span>:是shotgun surgery 的特殊情况。当你为某个类添加一个子类，就必须为另一个类相应添加一个子类时。
+
+<span class="number">12</span><span class="class">.Lazy</span> <span class="function"><span class="title">Class</span><span class="params">(冗余类)</span></span>:如果一个类的存在不值其身价，它就应该消失。
+
+<span class="number">13</span><span class="class">.Specualtive</span> <span class="function"><span class="title">Generality</span><span class="params">(夸夸其谈未来性)</span></span>:一个类实现了从未用到的功能和通用性。通常这样的类或方法唯一的用户是test case。不要犹豫，删除它。
+
+<span class="number">14</span><span class="class">.Temporary</span> <span class="function"><span class="title">Field</span><span class="params">(令人迷惑的暂时字段)</span></span>:一个对象的属性可能只在某些情况下才有意义。这样的代码将难以理解。因为你通常认为对象在所有时候都需要它的所有变量。可以专门建立一个对象来持有这样的孤儿属性，把只和他相关的行为移到该类。也可以在“变量不合法”的情况下创建Null对象，从而避免写判断。
+
+<span class="number">15</span><span class="class">.Message</span> <span class="function"><span class="title">Chains</span><span class="params">(过度耦合的消息链)</span></span>:消息链发生于当一个客户向一个对象要求另一个对象，然后客户又向这另一对象要求另一个对象，再向这另一个对象要求另一个对象，如此如此。这时，你需要隐藏分派。
+
+<span class="number">16</span><span class="class">.Middle</span> <span class="function"><span class="title">Man</span><span class="params">(中间人)</span></span>:对象的基本特性之一就是封装，而你经常会通过分派去实现封装。但是这一步不能走得太远，如果你发现一个类接口的一大半方法都在做分派，你可能需要移去这个中间人。
+
+<span class="number">17</span><span class="class">.Inappropriate</span> <span class="function"><span class="title">Intimacy</span><span class="params">(狎昵关系)</span></span>:某些类相互之间太亲密，它们花费了太多的时间去砖研别人的私有部分。
+
+<span class="number">18</span><span class="class">.Alternative</span> Classes with Different <span class="function"><span class="title">Interfaces</span><span class="params">(异曲同工的类)</span></span>:做相同事情的方法有不同的函数signature，一致把它们往类层次上移，直至协议一致。
+
+<span class="number">19</span><span class="class">.Incomplete</span> Library <span class="function"><span class="title">Class</span><span class="params">(不完美的库类)</span></span>:要建立一个好的类库非常困难。我们大量的程序工作都基于类库实现。然而，如此广泛而又相异的目标对库构建者提出了苛刻的要求。库构建者也不是万能的。有时 候我们会发现库类无法实现我们需要的功能。而直接对库类的修改有非常困难。这时候就需要用各种手段进行Refactoring。
+
+<span class="number">20</span><span class="class">.Data</span> <span class="function"><span class="title">Class</span><span class="params">(纯稚的数据类)</span></span>:对象包括状态和行为。如果一个类只有状态没有行为，那么肯定是不对劲滴。
+
+<span class="number">21</span><span class="class">.Refused</span> <span class="function"><span class="title">Bequest</span><span class="params">(被拒绝的遗赠)</span></span>:超类传下来很多行为和状态，而子类只是用了其中的很小一部分。这通常意味着你的类层次有问题。
+
+<span class="number">22</span>.<span class="function"><span class="title">Comments</span><span class="params">(过多的注释)</span></span>:经常觉得要写很多注释表示你的代码难以理解。
 </code></pre></li>
 </ul>
 <hr>
-<p>当在一个遗留项目，我们之前用到了jsp,现在要前后端分离使用angular,在这种情况下，就必须使用到lazy loading。<br>那么hibernate 本身在向前端传数据时就会出现如下问题：</p>
-<pre><code>Error <span class="number">500</span> Attempted <span class="keyword">to</span> serialize java.lang.<span class="keyword">Class</span>: org.hibernate.proxy.HibernateProxy. Forgot <span class="keyword">to</span> <span class="keyword">register</span> a <span class="keyword">type</span> adapter?
-</code></pre><p>原因就是无法对设置了lazy loading 的外键部分进行加载。<br>解决方法是需要工具对其进行序列化，链接<a href="https://github.com/FasterXML/jackson-datatype-hibernate" target="_blank" rel="external">here</a></p>
-<p>完成上述配置后需要在dao层显示的破坏掉lazy loading</p>
-<pre><code><span class="keyword">for</span> <span class="params">(Customer customer : customerList)</span> {
-<span class="comment">// if (customer.getEmployee() != null) {</span>
-<span class="comment">//    customer.getEmployee().getEmail();</span>
-<span class="comment">//  }</span>
-   Hibernate.initialize<span class="params">(customer.getEmployee<span class="params">()</span>)</span>;
-   }
-</code></pre><p> 最后想说的是，Lazy Loading 这个问题并不是Hibernate 独有，事实上很多Object/Relational Mapping (ORM) 的程式库，为了要争取一些执行上的效率、降低内存空间与数据传输负荷，几乎都采用类似的作法。</p>
+<ul>
+<li><p>Some JavaScript Code Smell<br>以下只是个人总结，欢迎补充以及更正。</p>
+<p>  1.Duplacated Code(重复代码):原因在于Copy And Paste。</p>
+<p>  2.convoluted Code(复杂代码):Too Many Statements;Too Much Depth;Too Much Complexity;</p>
+<p>  3.Switch Statements</p>
+<p>  4.Magic String/Number</p>
+</li>
+</ul>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2015/08/02/hello-world/" style="float: left;">
-        ← Hello World
+    <a class="pull-left" href="/2015/12/27/Test-Runner-Karma-简单介绍/" style="float: left;">
+        ← Test Runner--Karma 简单介绍
     </a>
     
+    
+    <a class="pull-right" href="/2015/08/29/D3-js-数据可视化javaScipt库/">
+        D3.js && SVG →
+    </a>
     
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2015/08/02/Hibernate-lazy-loading/" data-title=" Hibernate lazy loading" data-url="http://yoursite.com/2015/08/02/Hibernate-lazy-loading/"></div>
+<div class="ds-thread" data-thread-key="2015/12/23/Code-Smell-In-JavaScript/" data-title="Code Smell In JavaScript" data-url="http://yoursite.com/2015/12/23/Code-Smell-In-JavaScript/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"qiana"};
 (function() {
