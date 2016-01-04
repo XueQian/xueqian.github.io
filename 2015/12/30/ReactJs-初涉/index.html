@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>D3.js &amp;&amp; SVG | 欢迎来到-qiana的小小站</title>
+  <title>ReactJs 初涉 | 欢迎来到-qiana的小小站</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -237,106 +237,32 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2015-08-29T03:17:50.000Z" itemprop="datePublished">
-          2015-08-29
+      <time datetime="2015-12-30T12:33:55.000Z" itemprop="datePublished">
+          2015-12-30
       </time>
     
     
     | 
-    <a href='/tags/javaScript库/'>javaScript库</a>
+    <a href='/tags/ReactJs-基本概念/'>ReactJs 基本概念</a>
     
     
 </span>
-                <h1>D3.js && SVG</h1>
+                <h1>ReactJs 初涉</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>最近刚接触到D3.js与SVG,简单记录下所看所学。</p>
-<hr>
-<h3 id="D3">D3</h3><ul>
-<li>简介</li>
-</ul>
-<p>D3即Data-Driven-Documents，是一个以数据驱动文档的javaScript类库。数据来源于你，而文档就是基于Web 的文档（或者网页），代表可以在浏览器中展现的一切，比如HTML、SVG。D3 扮演的是一个驱动程序的角色，因为它联系着数据和文档.<br><img src="/img/D3.png" alt="Alt text"><br>上面的图片都是用D3写出来的，不明觉厉啊。</p>
-<p><font color="blue"><strong><a href="http://d3js.org/" target="_blank" rel="external">官网</a></strong></font>解释如下：</p>
-<blockquote>
-<p>D3.js is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG, and CSS. D3’s emphasis on web standards gives you the full capabilities of modern browsers without tying yourself to a proprietary framework, combining powerful visualization components and a data-driven approach to DOM manipulation.</p>
-</blockquote>
-<p>D3.js是一个JavaScript库，它可以通过数据来操作文档。D3可以通过使用HTML、SVG和CSS把数据鲜活形象地展现出来。D3严格遵循Web标准，因而可以让你的程序轻松兼容现代主流浏览器并避免对特定框架的依赖。同时，它提供了强大的可视化组件，可以让使用者以数据驱动的方式去操作DOM。</p>
-<p>简单的说，D3.js主要是一个用于前端来操作数据的JavaScript库。它通过使用HTML、SVG、CSS来给数据注入生命，即转换为各种简单易懂又美观的图形。</p>
-<ul>
-<li>搭建环境</li>
-</ul>
-<p>我们可以在 <font color="blue"><strong><a href="http://d3js.org/" target="_blank" rel="external">官网</a></strong></font>下载最新版本的D3.js，也可以在  <font color="blue"><strong><a href="https://github.com/mbostock/d3/releases" target="_blank" rel="external">github</a></strong> </font>上下载之前的版本。<br>下载并且解压缩后，会得到3个文件：d3.js、d3.min.js和LISENSE文件。<br>在开发过程中，建议使用d3.js，它可以帮你深入到D3库中跟踪调试JavaScript代码。<br>生产环境中，建议使用d3.min.js，它更加节省资源。<br>想要了解更多可参考 <font color="blue"><strong><a href="http://stackoverflow.com/questions/30711060/difference-between-d3-js-vs-d3-min-js" target="_blank" rel="external">stackoverflow</a></strong></font><br>要使用D3.js，只需要将其引入到html中即可。</p>
-<ul>
-<li>优点</li>
-</ul>
-<ol>
-<li>开源 <strong><a href="https://github.com/mbostock/d3" target="_blank" rel="external">github链接</a></strong><br>可以在<font color="blue"><strong><a href="https://github.com/search?q=stars:%3E1&amp;s=stars&amp;type=Repositories" target="_blank" rel="external">github</a></strong></font>上看到D3有多受欢迎。</li>
-<li>大量示例及文档<ul>
-<li><strong><a href="http://www.jianshu.com/p/c3800c61d2fb" target="_blank" rel="external">D3 gallery</a></strong> 这里有不少有趣的例子，可以帮你在线查找D3的使用方法，有各种各样的图表、特定的技术，还有一些跟其他工具一起实现的示例。</li>
-<li><strong><a href="http://bost.ocks.org/mike/" target="_blank" rel="external">Mike Bostock</a></strong> 是个D3示例站点，作者是Mike Bostock，这个站点里有很多有趣的例子。</li>
-<li><strong><a href="http://christopheviau.com/d3list/gallery.html" target="_blank" rel="external">BioVisualize</a></strong> 算是一个分门别类的D3 gallery，可以帮你快速地在线查找你想要的例子。</li>
-<li><strong><a href="https://github.com/mbostock/d3/wiki/Tutorials" target="_blank" rel="external">D3教程</a></strong> 有很多朋友不断更新提供的教程、讨论和文档，给你细致地演示了D3的使用方法。</li>
-<li><strong><a href="https://github.com/d3/d3-plugins" target="_blank" rel="external">D3插件</a></strong> 可能有些你需要的功能是D3没有的。在你自己实践之前，先查查D3的插件库，它提供了各种常用的、不常用的功能。</li>
-<li><strong><a href="https://github.com/mbostock/d3/wiki/API-Reference" target="_blank" rel="external">D3 API</a></strong> 是很不错的文档。这里你能找到D3所提供的全部功能、属性的详细说明。</li>
-<li><strong><a href="http://jsbin.com/ugacud/1/edit?html,css,output" target="_blank" rel="external">JS Bin</a></strong> 是个在线的D3测试、实验环境。你可以很容易地通过该工具跟其他人分享一些简单的代码。</li>
-<li><strong><a href="http://jsfiddle.net/qAHC2/" target="_blank" rel="external">JS Fiddle</a></strong> 跟JS Bin差不多，也是一个在线JavaScript代码分享平台。</li>
-</ul>
-</li>
-<li>强大的社区支持<ul>
-<li><strong><a href="https://groups.google.com/forum/?fromgroups#!forum/d3-js" target="_blank" rel="external">Google D3讨论社区</a></strong> 这是个官方的用户组，不单单有D3，还有一些其他相关的库。</li>
-<li>**<a href="http://stackoverflow.com/search?q=d3" target="_blank" rel="external">Stackoverflow</a> 搜索d3相关问题，一般都能快速找到解决方法。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="SVG">SVG</h3><ul>
-<li>简介</li>
-</ul>
-<p>SVG即”Scalable Vector Graphics”，可以理解成“可缩放矢量图形”。是基于可扩展标记语言（XML），用于描述二维矢量图形的一种图形格式。与屏幕分辨率无关, 体积上能使用Gzip的方式压缩, 而且修改编辑都很方便。<br>各浏览器对其的支持，更多可参考<strong><a href="http://caniuse.com/#search=svg" target="_blank" rel="external">canIUse</a></strong></p>
-<p><img src="/img/canIUse.png" alt="Alt text"></p>
-<p>与其他位图相比，有如下优势：</p>
-<ol>
-<li>SVG可被非常多的工具读取和修改（比如记事本）</li>
-<li>SVG与JPEG和GIF图像比起来，尺寸更小，且可压缩性更强。</li>
-<li>SVG是可伸缩的</li>
-<li>SVG图像可在任何的分辨率下被高质量地打印</li>
-<li>SVG可在图像质量不下降的情况下被放大</li>
-<li>SVG图像中的文本是可选的，同时也是可搜索的（很适合制作地图）</li>
-<li>SVG可以与Java技术一起运行</li>
-<li>SVG是开放的标准</li>
-<li>SVG文件是纯粹的XML</li>
-</ol>
-<p><img src="/img/svg-1.png" alt="Alt text"><br>上图展示了位图与SVG图在浏览器显示的效果。</p>
-<ul>
-<li>如何使用</li>
-</ul>
-<p>SVG是纯粹的XML文件，要将其嵌入到HTML中，有如下方式：</p>
-<hr>
-<p>img，需要注意的是，使用这种方法在交互性上有很多的限制，如不能使用JS来控制。</p>
-<pre><code>&lt;<span class="tag">img</span> src=<span class="string">"/path/*.svg"</span>  <span class="attribute">width</span>=<span class="string">"300"</span> /&gt;
-</code></pre><hr>
-<p>Background-image，最好不要使用base64编码来格式化SVG图片，因为它在加载完前会阻塞其它资源的下载。<br>需要注意的是，使用这种方法在交互性上有很多的限制，如不能使用JS来控制。</p>
-<pre><code><span class="class">.logo</span> {
-  <span class="attribute">background-image</span>: <span class="function">url</span>(<span class="string">/path/*.svg</span>);
-  <span class="attribute">background-size</span>: <span class="number">300px</span>;
+      		<p><img src="/img/react.png" alt="ReactJs"><br><strong><a href="https://facebook.github.io/react/" target="_blank" rel="external">React</a></strong>是”一个用于构建用户界面的JavaScript类库”。<br>起源于 Facebook 的内部项目，因为该公司对市场上所有 JavaScript MVC 框架都不满意，所以就自己写了一套，并且在13年<strong><a href="https://github.com/facebook/react" target="_blank" rel="external">开源</a></strong>了。<strong><a href="https://facebook.github.io/react/" target="_blank" rel="external">官网</a></strong>描述其出发点为：用于开发数据不断变化的大型应用程序（Building large applications with data that changes over time)。</p>
+<h4 id="核心概念">核心概念</h4><ul>
+<li>Just the view<br>React仅仅是UI, 所以它可以作为一个小特征，轻易地在已有项目中使用。<br><img src="/img/mvc.png" alt="mvc" style="width: 400px; height: 280px"><br>传统的前端MVC(模型-视图-控制器)一般是将数据作为Model层，逻辑处理作为Controller层，页面渲染作为View层。核心问题就会变成如何将来自于服务器端或者用户输入的数据，动态并且高效的反应到用户界面上。<br>React可作为MVC框架中的View层，通过一个 render() 方法，接受输入的参数并返回展示的对象。以下这个例子使用了JSX，它类似于XML的语法输入的参数通过 render() 传入组件后，将存储在this.props。<br>注：this.props 表示那些一旦定义，就不再改变的特性，而 this.state 是会随着用户互动而产生变化的特性。<pre><code><span class="class"><span class="keyword">class</span> <span class="title">Greeting</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">React</span>.<span class="title">Component</span>{</span>
+  render(){<span class="comment">//the heart of React.js</span>
+    <span class="comment">//pass in any typeof js objects, methods...</span>
+    <span class="keyword">return</span>&lt;div&gt;{<span class="keyword">this</span>.props}&lt;/div&gt;;
+  }
 }
-</code></pre><hr>
-<p>iframe。</p>
-<pre><code><span class="tag">&lt;<span class="title">iframe</span> <span class="attribute">src</span>=<span class="value">"/path/*.svg"</span>&gt;</span>balabala...<span class="tag">&lt;/<span class="title">iframe</span>&gt;</span>
-</code></pre><hr>
-<p>Embed，早期用的很多。</p>
-<pre><code>&lt;embed <span class="class"><span class="keyword">type</span></span>=<span class="string">"image/svg+xml"</span> src=<span class="string">"/path/*.svg"</span> /&gt;
-</code></pre><hr>
-<p>Object，<object>是SVG使用方法中很好的一个选择，如果你想使用JS来进行交互控制的话。 只需要把它放到HTML中就行了。</object></p>
-<pre><code>&lt;<span class="keyword">object</span> <span class="keyword">type</span>=<span class="string">"image/svg+xml"</span> data=<span class="string">"/path/*.svg"</span>&gt;balabala&lt;/<span class="keyword">object</span>&gt;
-</code></pre><hr>
-<p>svg,直接使用svg标签，通过代码将SVG图像嵌入到HTML代码中。直接在HTML页面中嵌入SVG，而不是像前面几种方式那样，将SVG图像文件嵌入到页面当中。<br>你可以设置width和height值，控制SVG图像的宽度和高度。还可以通过CSS给其定义一些样式，实现一些样式效果。</p>
-<pre><code><span class="tag">&lt;<span class="title">svg</span> <span class="attribute">width</span>=<span class="value">"579"</span> <span class="attribute">height</span>=<span class="value">"220"</span> <span class="attribute">viewBox</span>=<span class="value">"0 0 579 220"</span>&gt;</span>
-......
-<span class="tag">&lt;/<span class="title">svg</span>&gt;</span>
-</code></pre><h3 id="基于D3的工具">基于D3的工具</h3><ul>
-<li>如果你使用D3，但又不想写代码，可以考虑一些基于D3的工具.个人推荐: <strong><a href="http://nvd3.org/" target="_blank" rel="external">NVD3</a></strong>。<br>它是一个可重用的D3图表。NVD3提供了很多漂亮的示例，不用像在D3里那样编写代码就可以定制很多效果。</li>
+</code></pre></li>
+<li>Virtual DOM<br>react中的组件跟页面真实dom之间会有一层virtual dom(虚拟dom)，virtual dom是内存中的javascript对象，它具有与真实dom一致的树状结构。<br>每次试图更新view时，react都会重新构建virtual dom树，然后将其与上一次virtual dom树作对比，依靠react强劲的核心算法dom diff找出真正发生变更的节点，最后映射到真实dom上，这也是react号称性能高效的秘密所在。<br>依赖于virtual dom，对React而言，每一次界面的更新都是整体更新，而不是层叠式更新(即一个复杂的，各个UI之间可能存在互相依赖的时候，每一次独立的更新可能会引发其他UI的变化，假如我们的目的是更新C的数据，逻辑流很可能是这样的 A –&gt;B–&gt;C–&gt;A–&gt;B–&gt;C，这种情况下中间状态的DOM操作就是极大的浪费)。<br><img src="/img/virtualDom.png" alt="virtualDom"> </li>
+<li>Components<br>组件，即封装起来的具有独立功能的UI部件。React推荐以组件的方式去重新思考UI构成，将UI上每一个功能相对独立的模块定义成组件，然后将小的组件通过组合或者嵌套的方式构成大的组件，最终完成整体UI的构建。例如，Facebook的<strong><a href="https://www.instagram.com/" target="_blank" rel="external">instagram</a></strong>整站都采用了React来开发，整个页面就是一个大的组件。<br>对于React而言，完全是一个新的思路，从功能的角度出发，将UI分成不同的组件，每个组件都独立封装。<br>通过这种方式，每个组件的UI和逻辑都定义在组件内部，和外部完全通过API来交互，通过组合的方式来实现复杂的功能。React认为一个组件应该具有如下特征：<br>（1）可组合（Composeable）：一个组件易于和其它组件一起使用，或者嵌套在另一个组件内部。如果一个组件内部创建了另一个组件，那么说父组件拥有（own）它创建的子组件，通过这个特性，一个复杂的UI可以拆分成多个简单的UI组件；<br>（2）可重用（Reusable）：每个组件都是具有独立功能的，它可以被使用在多个UI场景；<br>（3）可维护（Maintainable）：每个小的组件仅仅包含自身的逻辑，更容易被理解和维护；<br>（4）可测试（Testable）：因为每个组件都是独立的，那么对于各个组件分别测试显然要比对于整个UI进行测试容易的多。</li>
+<li>Top down data flow<br>数据绑定在小的例子里会工作的很好。然而，当你的app不断地迭代时，声明依赖会快速地引入循环。循环。循环。。。<br><img src="/img/dataBind.png" alt="dataBind"><br>在这种情况下，你能预测一个Model发生变化时会发生什么吗？推理是非常非常困难的，因为它的执行次序可能是非常随意的。<br>在React里面，数据流是一个方向的：从拥有者到子节点。数据仅向一个方向传递,可以认为它是单向数据绑定。<br>然而，有很多应用需要你读取一些数据，然后传回给你的程序。会频繁地想更新某些React state。<br>React也支持双向数据绑定，级隐式地强制在DOM里面的数据总是和某些React state保持一致<br>可以使用提供的<strong><a href="https://facebook.github.io/react/docs/two-way-binding-helpers.html" target="_blank" rel="external">ReactLink</a></strong>实现双向绑定，其仅仅是一个onChange/setState()模式的简单包装和约定。它不会从根本上改变数据在React应用中如何流动。(即本质还是top-down data flow)</li>
 </ul>
 
             <div class="clearfix"></div>
@@ -344,19 +270,19 @@
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2015/12/23/Code-Smell-In-JavaScript/" style="float: left;">
-        ← Code Smell In JavaScript
+    <a class="pull-left" href="/2015/12/31/HTML-中判断IE浏览器/" style="float: left;">
+        ← HTML 中判断IE浏览器
     </a>
     
     
-    <a class="pull-right" href="/2015/08/11/Ruby-on-Rails-环境安装/">
-        Ruby on Rails 环境安装 →
+    <a class="pull-right" href="/2015/12/27/Test-Runner-Karma-简单介绍/">
+        Test Runner--Karma 简单介绍 →
     </a>
     
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2015/08/29/D3-js-数据可视化javaScipt库/" data-title="D3.js &amp;&amp; SVG" data-url="http://yoursite.com/2015/08/29/D3-js-数据可视化javaScipt库/"></div>
+<div class="ds-thread" data-thread-key="2015/12/30/ReactJs-初涉/" data-title="ReactJs 初涉" data-url="http://yoursite.com/2015/12/30/ReactJs-初涉/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"qiana"};
 (function() {
