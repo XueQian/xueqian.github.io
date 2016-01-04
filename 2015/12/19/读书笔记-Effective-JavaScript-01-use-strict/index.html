@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Archives: 2015/8 | 欢迎来到-qiana的小小站</title>
+  <title>[读书笔记]Effective JavaScript-01-use strict | 欢迎来到-qiana的小小站</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -234,64 +234,91 @@
 
         <!-- ============================ END Hero Image =========================== -->
       
-
-
-<section id="services">
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/29/D3-js-数据可视化javaScipt库/">D3.js &amp;&amp; SVG</a></h4>
-                            
-                            <p><time datetime="2015-08-29T03:17:50.000Z"><a href="/2015/08/29/D3-js-数据可视化javaScipt库/">2015-08-29</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/11/Ruby-on-Rails-环境安装/">Ruby on Rails 环境安装</a></h4>
-                            
-                            <p><time datetime="2015-08-11T13:54:42.000Z"><a href="/2015/08/11/Ruby-on-Rails-环境安装/">2015-08-11</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/02/hello-world/">Hello World</a></h4>
-                            
-                            <p><time datetime="2015-08-02T05:50:42.000Z"><a href="/2015/08/02/hello-world/">2015-08-02</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/02/Hibernate-lazy-loading/"> Hibernate lazy loading</a></h4>
-                            
-                            <p><time datetime="2015-08-02T05:36:24.000Z"><a href="/2015/08/02/Hibernate-lazy-loading/">2015-08-02</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2015-12-19T12:16:20.000Z" itemprop="datePublished">
+          2015-12-19
+      </time>
+    
+    
+    | 
+    <a href='/tags/JavaScript-严格模式/'>JavaScript 严格模式</a>
+    
+    
+</span>
+                <h1>[读书笔记]Effective JavaScript-01-use strict</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<p>最近买了一堆堆的书，在大牛的建议一下，作为小白的我在看<strong><a href="https://book.douban.com/subject/25786138/" target="_blank" rel="external">《Effective JavaScript编写高质量JavaSript代码的68个有效方法》</a></strong>。</p>
+<hr>
+<p>严格模式(strict mode)是由<strong><a href="http://kangax.github.io/compat-table/es5/" target="_blank" rel="external">ES5</a></strong>引入的作为版本控制的考量特性，允许我们在受限制的JavaScript版本中禁止使用一些问题较多，容易出错的特性。<br>其语法设计是向后兼容的，因此在没有实现严格检查的环境中也是可以执行严格代码的(注：严格代码期望运行在严格模式下)。</p>
+<h3 id="“use_strict”">“use strict”</h3><p>要使用严格模式很简单，只需要在程序的最开始增加”use strict”;字符串，或者在一个方法的开始增加”use strict”;</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>)</span>{
+<span class="pi">    "use strict"</span>;
+    <span class="comment">//......</span>
+}
+</code></pre><p>加入我们将定义了严格模式的代码运行在<strong><a href="https://en.wikipedia.org/wiki/ECMAScript" target="_blank" rel="external">ES3</a></strong>引擎上，解释执行该字面量是没有任何副作用的。但是旧的引擎不会进行任何严格模式检查，也就是说如果使用了严格模式的代码没有在ES5及以上的引擎上做过测试，就很容易出现错误。<br>所以，我们应该总在完全兼容ES5的环境中测试严格模式代码。</p>
+<h3 id="严格模式下文件合并">严格模式下文件合并</h3><p>“use strict”只会在文件或者函数的顶部才有效。如何将多个严格模式文件以及非严格模式文件合并为一个文件呢？<br>如果在合并文件开始引用”use strict”,那么非严格模式会执行在严格模式下。如果不使用”use strict,那么严格模式会执行在非严格模式下。。都是问题。</p>
+<ul>
+<li>解决方案一<br>不要将进行严格模式检查的文件和不进行严格模式检查的文件合并在一起。(这是最简单也是最理想的解决方案)</li>
+<li><p>解决方案二<br>通过将其自身包裹在理解调用的函数表达式中。(将所有要合并的文件都放在局部作用域内，所有每个文件都可以独立决定是否使用严格模式)</p>
+<pre><code>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="comment">//file1.js 使用严格模式</span>
+<span class="pi">    "use strict"</span>;
+    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>)</span>{
+        <span class="comment">//....</span>
+    }
+    <span class="comment">//....</span>
+})();
+(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="comment">//file2.js 不适用严格模式</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>)</span>{
+        <span class="comment">//....</span>
+    }
+    <span class="comment">//....</span>
+})();
+</code></pre></li>
+</ul>
+<p>我们要当心连接在不同严格模式下有不同预期的脚本，所以，为了达到更好的兼容性，以及有代码审查的效果，最好是在严格模式下编码。</p>
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>每一个不曾起舞的日子,都是对生命的辜负。</p>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2015/12/23/Code-Smell-In-JavaScript/" style="float: left;">
+        ← Code Smell In JavaScript
+    </a>
+    
+    
+    <a class="pull-right" href="/2015/08/29/D3-js-数据可视化javaScipt库/">
+        D3.js && SVG →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/12/19/读书笔记-Effective-JavaScript-01-use-strict/" data-title="[读书笔记]Effective JavaScript-01-use strict" data-url="http://yoursite.com/2015/12/19/读书笔记-Effective-JavaScript-01-use-strict/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qiana"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 
