@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Archives: 2016 | 欢迎来到-qiana的小小站</title>
+  <title>jQuery 实现table卷轴移动（How to scroll to specific item using jQuery?） | 欢迎来到-qiana的小小站</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -236,37 +236,96 @@
 
         <!-- ============================ END Hero Image =========================== -->
       
-
-
-<section id="services">
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2016/01/07/jQuery-实现table卷轴移动（How-to-scroll-to-specific-item-using-jQuery-）/">jQuery 实现table卷轴移动（How to scroll to specific item using jQuery?）</a></h4>
-                            
-                            <p><time datetime="2016-01-07T15:08:28.000Z"><a href="/2016/01/07/jQuery-实现table卷轴移动（How-to-scroll-to-specific-item-using-jQuery-）/">2016-01-07</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-01-07T15:08:28.000Z" itemprop="datePublished">
+          2016-01-07
+      </time>
+    
+    
+    | 
+    <a href='/tags/jQuery-javaScript/'>jQuery javaScript</a>
+    
+    
+</span>
+                <h1>jQuery 实现table卷轴移动（How to scroll to specific item using jQuery?）</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<h3 id="场景">场景</h3><p>有这样一个需求，当用户选择特定元素时，需要table表中出现联动的效果。也就是说table表中能够滚动到被选择的特定元素上。<br>给出一个简单的例子(<strong><a href="http://jsfiddle.net/xY7tx/406/" target="_blank" rel="external">jsfiddl在线示例</a></strong>）</p>
+<pre><code>//HTML
+<span class="tag">&lt;<span class="title">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">table</span> <span class="attribute">id</span>=<span class="value">"my_table"</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">id</span>=<span class="value">'row_1'</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>1<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">id</span>=<span class="value">'row_2'</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>2<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">id</span>=<span class="value">'row_3'</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>3<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">id</span>=<span class="value">'row_4'</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>4<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">id</span>=<span class="value">'row_5'</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>5<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">id</span>=<span class="value">'row_6'</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>6<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">id</span>=<span class="value">'row_7'</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>7<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">id</span>=<span class="value">'row_8'</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>8<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+        <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">id</span>=<span class="value">'row_9'</span>&gt;</span><span class="tag">&lt;<span class="title">td</span>&gt;</span>9<span class="tag">&lt;/<span class="title">td</span>&gt;</span><span class="tag">&lt;/<span class="title">tr</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">table</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>每一个不曾起舞的日子,都是对生命的辜负。</p>
+//简单的css样式
+div {
+    width: 100px;
+    height: 70px;
+    border: 1px solid blue;
+    overflow: auto;
+}
+</code></pre><h3 id="实现">实现</h3><ul>
+<li><p>只使用jQuery：</p>
+<pre><code><span class="comment">//scrollTo为实现卷轴效果的被选择元素，可以结合别的需求（如click事件)绑定其他效果。</span>
+var <span class="keyword">container</span> = <span class="variable">$(</span><span class="string">'div'</span>),
+    scrollTo = <span class="variable">$(</span><span class="string">'#row_8'</span>);
+
+<span class="keyword">container</span>.scrollTop(
+    scrollTo.offset().top - <span class="keyword">container</span>.offset().top + <span class="keyword">container</span>.scrollTop()
+);
+</code></pre><p>jQuery本身已经将卷轴效果封装成了<strong><a href="http://api.jquery.com/scrollTop/" target="_blank" rel="external">.scrollTop()</a></strong> 及 <strong><a href="https://api.jquery.com/scrollleft/" target="_blank" rel="external">.scrollLeft()</a></strong>，他们能将卷轴移动到指定位置。<br>但是这样处理的效果比较唐突，被选择元素会直接跳到指定点。于是就有下面更自然平滑效果的处理方式。</p>
+</li>
+<li>使用jQuery 和 css animate:<pre><code><span class="comment">//200可以设置过渡时间，单位为毫秒。</span>
+<span class="tag">container</span><span class="class">.animate</span>({
+    <span class="attribute">scrollTop</span>: scrollTo.<span class="function">offset</span>().top - container.<span class="function">offset</span>().top + container.<span class="function">scrollTop</span>()
+}，<span class="number">200</span>);
+</code></pre></li>
+</ul>
+<h3 id="完~">完~</h3>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2015/12/31/HTML-中判断IE浏览器/">
+        HTML 中判断IE浏览器 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/01/07/jQuery-实现table卷轴移动（How-to-scroll-to-specific-item-using-jQuery-）/" data-title="jQuery 实现table卷轴移动（How to scroll to specific item using jQuery?）" data-url="http://yoursite.com/2016/01/07/jQuery-实现table卷轴移动（How-to-scroll-to-specific-item-using-jQuery-）/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qiana"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 
