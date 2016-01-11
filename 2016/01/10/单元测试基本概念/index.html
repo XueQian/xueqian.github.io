@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Category: java | 欢迎来到-qiana的小小站</title>
+  <title>单元测试基本概念 | 欢迎来到-qiana的小小站</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -240,37 +240,87 @@
 
         <!-- ============================ END Hero Image =========================== -->
       
-
-
-<section id="services">
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/02/Hibernate-lazy-loading/"> Hibernate lazy loading</a></h4>
-                            
-                            <p><time datetime="2015-08-02T05:36:24.000Z"><a href="/2015/08/02/Hibernate-lazy-loading/">2015-08-02</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-01-10T09:24:45.000Z" itemprop="datePublished">
+          2016-01-10
+      </time>
+    
+    
+    | 
+    <a href='/tags/TDD-Unit-Test/'>TDD Unit Test</a>
+    
+    
+</span>
+                <h1>单元测试基本概念</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<h3 id="什么是单元测试?">什么是单元测试?</h3><pre><code><span class="keyword">Unit</span> testing <span class="keyword">is</span> when you <span class="keyword">write</span> test code <span class="keyword">to</span> verify
+单元测试就是在编程时用测试代码来验证代码中的各个单元
+</code></pre><h3 id="如何正确书写测试？">如何正确书写测试？</h3><p>1.AAA逻辑顺序 arrange act assert [after(close something)]</p>
+<pre><code>@<span class="type">Test</span>
+public <span class="type">void</span> testSay() {
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>每一个不曾起舞的日子,都是对生命的辜负。</p>
+    // <span class="type">Arrange</span>
+    <span class="type">HelloWorld</span> helloWorld = new <span class="type">HelloWorld</span>();
+
+    // <span class="type">Act</span>
+    <span class="type">String</span> <span class="literal">result</span> = helloWorld.say();
+
+    // <span class="type">Assert</span>
+    assertEquals(<span class="string">"Hello World!"</span>, <span class="literal">result</span>);
+}
+
+// <span class="type">After</span> (optional)
+
+@<span class="type">After</span>
+public <span class="type">void</span> tearDown() {
+    // <span class="type">Close</span> something...
+}
+</code></pre><p>2.Given When Then描述结构  (given someContext when DoingSomeBehavior Then SomeResultOccurs)<br>3.some_result_occurs_when_doing….<br>4.测试即文档<br>5.Suite-Fixture-Case<br>6.无限接近言简意赅的自然化语言<br>7.Matcher神器-<strong><a href="http://hamcrest.org/" target="_blank" rel="external">Hamcrest</a></strong><br>8.Mock神器-Mockito (stub vs mock)<br>9.异常处理和测试神器-<strong><a href="http://stefanbirkner.github.io/fishbowl/apidocs/com/github/stefanbirkner/fishbowl/Fishbowl.html" target="_blank" rel="external">Fishbowl</a></strong></p>
+<h3 id="注意：">注意：</h3><p>1.测试行为而不是测试方法-测试的是一个类的全部行为的集合，而不是他的每一个独立的方法。—-TDD<br>2.测试与生产的关系——寻求更好的代码设计技巧<br>3.专注和单一的价值–单元测试用例分解清晰<br>4.保持测试的相关性—junit : Category &amp; Ignoring a Test<br>5.写断言时慎用不靠谱的语气目标 （正则表达式作为断言 or 调用其他方法返回值作为断言)</p>
+<h3 id="什么是好的测试？">什么是好的测试？</h3><p> fast-好的测试足够快,测试易于编写，减少依赖<br> Isolated-好的测试应该相互隔离，不依赖于别的测试，不依赖于外部资源，单一职责原则<br> Repeatable-好的测试可复验，排除产生不确定性干扰,使用模拟对象和单一工具java8 新增class<br> Self-validation-自确认，自排序，及时，自动化运行，快速准确确认结果，最细粒度，最快速<br> Timely-足够及时</p>
+<h3 id="测试什么？">测试什么？</h3><p>Right-BICEP原则<br>Right-结果正确，Happy-Path测试，了解最终用户的目标，或所面对代码的行为<br>Boundary Conditions-边界条件正确，bug往往发生在边界上，CORRECT原则<br>Inverse Relationships-检查反向关系，尽量避免调用与正向相同方法<br>Cross-Check能否用其他手段对结果进行再次确认，<br>Error-Conditions-强制触发错误条件，unhappy-path (Fishbowl and Mock)<br>Performance–性能测试是否在允许范围内</p>
+<h3 id="如何确定边界条件？">如何确定边界条件？</h3><p>conformance （一致性）－－ 值 是否和预期的一致。<br>Ordering（顺序性）－－一组值是该有序或者无序的。<br>Range（区间性）－－值是否位于合理的最小值和最大值之内。<br>Reference（引用 、耦合性）－－代码是否引用了一些不在代码本身控制范围之内的外部资源。<br>Existence（存在性）－－值是否存在（例如，是否是非null，非0，在一个集合中等等）。<br>Cardinatity（基数性）－－是否恰好有足够的值？<br>Time（相对或者绝对的时间性）－－所有事情的发生是否是有序的？是否是在正确的时刻？是否恰好及时？</p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/01/11/读书笔记-JavaSript-设计模式-01/" style="float: left;">
+        ← [读书笔记]JavaSript 设计模式-01
+    </a>
+    
+    
+    <a class="pull-right" href="/2016/01/07/jQuery-实现table卷轴移动（How-to-scroll-to-specific-item-using-jQuery-）/">
+        jQuery 实现table卷轴移动（How to scroll to specific item using jQuery?） →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/01/10/单元测试基本概念/" data-title="单元测试基本概念" data-url="http://yoursite.com/2016/01/10/单元测试基本概念/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qiana"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 

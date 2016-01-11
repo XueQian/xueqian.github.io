@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Category: java | 欢迎来到-qiana的小小站</title>
+  <title>[读书笔记]JavaSript 设计模式-01 | 欢迎来到-qiana的小小站</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -240,37 +240,110 @@
 
         <!-- ============================ END Hero Image =========================== -->
       
-
-
-<section id="services">
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/02/Hibernate-lazy-loading/"> Hibernate lazy loading</a></h4>
-                            
-                            <p><time datetime="2015-08-02T05:36:24.000Z"><a href="/2015/08/02/Hibernate-lazy-loading/">2015-08-02</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-01-11T13:13:36.000Z" itemprop="datePublished">
+          2016-01-11
+      </time>
+    
+    
+    | 
+    <a href='/tags/JavaSript-design-patterns/'>JavaSript design patterns</a>
+    
+    
+</span>
+                <h1>[读书笔记]JavaSript 设计模式-01</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<p>基于<strong><a href="http://book.douban.com/subject/24744217/" target="_blank" rel="external">《JavaScript设计模式》</a></strong>前八章及<strong><a href="http://book.douban.com/subject/26382780/" target="_blank" rel="external">《JavaScript设计模式与开发实践》</a></strong>引言部分读书笔记。</p>
+<h3 id="模式是什么?">模式是什么?</h3><pre><code>一种可复用的解决方案，可用于解决软件设计中遇到的常见问题。
+</code></pre><ul>
+<li>是已经验证的解决方案。</li>
+<li>易复用。</li>
+<li>富有表达力。</li>
+<li>作用仅仅是为我们提供一个解决问题的方案。</li>
+<li>模式最早诞生于建筑学，<strong><a href="http://baike.baidu.com/item/GoF" target="_blank" rel="external">GoF(四人帮Gang Of Four)</a></strong>将模式观点应用于面向对象的软件设计中，并且总结了<strong><a href="http://baike.baidu.com/view/66964.htm" target="_blank" rel="external">23种常见软件开发设计模式</a></strong>，详细可参考<strong><a href="http://book.douban.com/subject/1052241/" target="_blank" rel="external">《设计模式：可复用面向对象软件的基础》</a></strong></li>
+</ul>
+<h3 id="设计模式是什么？">设计模式是什么？</h3><pre><code>在面向对象软件设计过程中针对特定问题的简介而优雅的解决方案。
+</code></pre><p>通俗的说，设计模式是在某种场合下对某个问题的一种解决方案，或者说是给面向对象软件开发中的一些好的设计去个好名字。这些好的”设计”并不是GoF发明的，而是早已存在于软件开发中。GoF将这些”好的设计”从浩瀚的面向对象世界中挑选出来，并且给予它们一个好听又好记的名字。<br>一个好的设计方案有了名字之后，才能被更好的传播，人们才有更多地机会去分享和学习。</p>
+<h3 id="设计模式的结构？">设计模式的结构？</h3><ul>
+<li>模式名称(描述）</li>
+<li>上下文大纲(模式在上下文中更加有效，更加有说服力)</li>
+<li>问题陈述(该设计模式存在的必要性)</li>
+<li>解决方案(步骤)</li>
+<li>设计(描述，特别是与它交互的用户行为)</li>
+<li>实现(有关如何实现模式的指导)</li>
+<li>插图</li>
+<li>示例(最小形式的模式实现)</li>
+<li>辅助条件(需要哪些其他模式来支持所描述模式的使用?)</li>
+<li>关系(这种模式像哪种模式?它是否极力模仿其他模式?)</li>
+<li>已知用法(是广泛使用的模式?如果是，在哪里使用？如何使用?)</li>
+<li>讨论(该模式能带来的利与弊)</li>
+</ul>
+<h3 id="设计模式类别">设计模式类别</h3><pre><code>某一种设计模式都重点关注一个特定的面向对象设计问题或设计要点，描述合适使用，在另一些约束条件下啥都还能使用，以及使用的效果和利弊。
+</code></pre><ul>
+<li>创建型设计模式(专注于对象创建机制，以适合给定情况的方式来创建对象)，包含的模式有：<ul>
+<li>Constructor(构造器）</li>
+<li>Factory(工厂)</li>
+<li>Abstract(抽象)</li>
+<li>Prototype(原型)</li>
+<li>Singleton(单例)</li>
+<li>Builder(生成器)</li>
+</ul>
+</li>
+<li>结构型设计模式(与对象组合有关，通常可以用于找出在不同对象之间建立关系的简单方法),包含的模式有:<ul>
+<li>Decorator(装饰者)</li>
+<li>Facade(外观)</li>
+<li>Flyweight(享元)</li>
+<li>Adapter(适配器)</li>
+<li>Proxy(代理)</li>
+</ul>
+</li>
+<li>行为设计模式(专注于该删或者简化系统中不同对象之间的通信),包含的模式有：<ul>
+<li>Iterator(迭代器)</li>
+<li>Mediator(中介者)</li>
+<li>Observer(观察者)</li>
+<li>Visitor(访问者)</li>
+</ul>
+</li>
+</ul>
+<h3 id="反模式">反模式</h3><p>如果我们认为一种模式代表一种最佳实践，那么一种反模式就代表我们已经学到的教训。<br>        描述一种针对某个特定问题的不良解决方案，该方案会导致糟糕的情况发生。</p>
+<h3 id="设计模式的通用性">设计模式的通用性</h3><p>设计模式被一些人认为只是夸夸其谈的东西，使用设计模式可能会增加复杂性，或带来额外的代码。<br>从某种角度看，设计模式确实可能带来代码量的增加，或许也会把系统逻辑搞得更加复杂。但软件开发的成本并非全部都在开发阶段，设计模式的作用就是让人们写出可重用和可维护的程序。<br>所有设计模式都遵循一条原则，即“找出程序中变化的地方，并将变化封装起来”。当我们封装了可变部分，那么剩下的就是不可变部分，这些不变和稳定的部分是很容易复用的。<br>比如假设有一个空房间，我们需要日复一日的往里面扔东西。最简单的方法当然是直接扔了，但是时间久了会发现想要从这个房间找到想要的东西会变得越来越难。所以在房间里放一些箱子来分类更好的选择，虽然箱子会增加我们的成本，放的时候也不再是随便乱扔了，但是找起东西来就方便多了<br>使用这些箱子的过程，或许就对应于使用设计模式的过程。</p>
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>每一个不曾起舞的日子,都是对生命的辜负。</p>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2016/01/10/单元测试基本概念/">
+        单元测试基本概念 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/01/11/读书笔记-JavaSript-设计模式-01/" data-title="[读书笔记]JavaSript 设计模式-01" data-url="http://yoursite.com/2016/01/11/读书笔记-JavaSript-设计模式-01/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"qiana"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 
